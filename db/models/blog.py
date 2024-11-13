@@ -16,5 +16,6 @@ class Blog(Base):
     # Строковая ссылка на User
     author = relationship("User", back_populates="blogs")  
     
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now())
     is_active = Column(Boolean, default=False)
+    
