@@ -11,10 +11,15 @@ class CreateBlog(BaseModel):
 
     @model_validator(mode="before")
     def generate_slug(cls, values):
-        if 'title' in values:
-            values['slug'] = values.get("title").replace(" ", "-").lower()
-        return values
-    
+        title = values.get('title')
+        if title:
+            slug = title.replace(" ", "-").lower()
+        return slug
+
+
+class UpdateBlog(CreateBlog):
+    pass
+
 
 class ShowBlog(BaseModel):
     title: str

@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, Text, String, Boolean, DateTime, Foreign
 from sqlalchemy.orm import relationship
 from db.base_class import Base
 
+
 class Blog(Base):
     __tablename__ = 'blogs'  # Явно указываем имя таблицы
     id = Column(Integer, primary_key=True)
@@ -18,4 +19,3 @@ class Blog(Base):
     
     created_at = Column(DateTime, default=datetime.now())
     is_active = Column(Boolean, default=False)
-    
