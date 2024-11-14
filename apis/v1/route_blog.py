@@ -5,7 +5,8 @@ from sqlalchemy.orm import Session
 
 from db.session import get_db
 from schemas.blog import ShowBlog, CreateBlog, UpdateBlog
-from db.repository.blog import create_new_blog, retrieve_blog, get_active_blogs, update_blog, delete_blog
+from db.repository.blog import (
+    create_new_blog, retrieve_blog, get_active_blogs, update_blog, delete_blog)
 
 
 router = APIRouter()
