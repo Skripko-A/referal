@@ -30,3 +30,12 @@ def update_blog(id: int, blog: UpdateBlog, author_id: int, db: Session):
     db.add(requested_blog)
     db.commit()
     return requested_blog
+
+
+def delete_blog(id: int, author_id: int, db: Session):
+    requested_blog = db.query(Blog).filter(Blog.id == id)
+    if not requested_blog:
+        return {"error": "Блог не найден"}
+    requested_blog.delete()
+    db.commit()
+    return {"УДалено": f"Блог номер {id}"}
