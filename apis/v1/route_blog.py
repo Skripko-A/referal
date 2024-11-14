@@ -17,7 +17,9 @@ from db.repository.blog import (
 router = APIRouter()
 
 
-@router.post("/blogs", response_model=ShowBlog, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/blogs", response_model=ShowBlog, status_code=status.HTTP_201_CREATED
+)
 async def create_blog(blog: CreateBlog, db: Session = Depends(get_db)):
     blog = create_new_blog(blog=blog, db=db, author_id=1)
     return blog
@@ -52,6 +54,7 @@ def delete_a_blog(id: int, db: Session = Depends(get_db)):
     command = delete_blog(id=id, author_id=1, db=db)
     if command.get("error"):
         raise HTTPException(
-            detail=command.get("error"), status_code=status.HTTP_400_BAD_REQUEST
+            detail=command.get("error"),
+            status_code=status.HTTP_400_BAD_REQUEST,
         )
     return {"Сообщение": f"Удален блог номер {id}"}
