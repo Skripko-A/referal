@@ -3,6 +3,8 @@ from typing import List
 from fastapi import APIRouter, status, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from apis.v1.route_login import get_current_user
+from db.models import User
 from db.session import get_db
 from schemas.blog import ShowBlog, CreateBlog, UpdateBlog
 from db.repository.blog import (
@@ -42,16 +44,28 @@ def get_all_blogs(db: Session = Depends(get_db)):
 
 
 @router.put("/blog/{id}", response_model=ShowBlog)
-def update_a_blog(id: int, blog: UpdateBlog, db: Session = Depends(get_db)):
-    blog = update_blog(id=id, blog=blog, author_id=1, db=db)
-    if not blog:
-        raise HTTPException(detail="Блог не найден")
+def update_a_blog(
+    id: int,
+    blog: UpdateBlog,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    blog = update_blog(id=id, blog=blog, author_id=current_user.id, db=db)
+    if isinstance(blog, dict):
+        raise HTTPException(
+            detail=blog.get("error"),
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
     return blog
 
 
 @router.delete("/delete/{id}")
-def delete_a_blog(id: int, db: Session = Depends(get_db)):
-    command = delete_blog(id=id, author_id=1, db=db)
+def delete_a_blog(
+    id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    command = delete_blog(id=id, author_id=current_user.id, db=db)
     if command.get("error"):
         raise HTTPException(
             detail=command.get("error"),
