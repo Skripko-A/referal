@@ -6,15 +6,17 @@ from pydantic import BaseModel, model_validator, ConfigDict
 
 class CreateBlog(BaseModel):
     title: str
-    slug: str
+    slug: Optional[str] = None
     content: Optional[str] = None
 
     @model_validator(mode="before")
     def generate_slug(cls, values):
         title = values.get('title')
         if title:
-            slug = title.replace(" ", "-").lower()
-        return slug
+            values['slug'] = title.replace(" ", "-").lower()
+        else:
+            raise ValueError("Title is required to generate a slug")
+        return values
 
 
 class UpdateBlog(CreateBlog):
