@@ -15,6 +15,8 @@ class Settings:
     DATABASE_URL = os.getenv("DATABASE_URL")
     SECRET_KEY = os.getenv("SECRET_KEY")
     DEBUG = os.getenv("DEBUG", "False") == "True"
+    ALGORITHM = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES = 30  # minutes
     print(DATABASE_URL)
 
 
