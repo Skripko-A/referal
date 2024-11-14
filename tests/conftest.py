@@ -23,8 +23,7 @@ def start_application():
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///.test_db.db"
 engine = create_engine(
-     SQLALCHEMY_DATABASE_URL,
-     connect_args={"check_same_thread": False}
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
 
 SessionTesting = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -60,6 +59,7 @@ def client(
     Create a new FastAPI TestClient that uses the `db_session` fixture
     to override the `get_db` dependency that is injected into routes.
     """
+
     def _get_test_db():
         try:
             yield db_session

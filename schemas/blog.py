@@ -11,9 +11,9 @@ class CreateBlog(BaseModel):
 
     @model_validator(mode="before")
     def generate_slug(cls, values):
-        title = values.get('title')
+        title = values.get("title")
         if title:
-            values['slug'] = title.replace(" ", "-").lower()
+            values["slug"] = title.replace(" ", "-").lower()
         else:
             raise ValueError("Title is required to generate a slug")
         return values

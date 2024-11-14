@@ -4,6 +4,6 @@ from schemas.user import UserCreate
 
 
 def create_random_user(db: Session):
-    user_data = UserCreate(email="random@user.com", password="password")  # Создаем данные пользователя
-    new_user = create_new_user(user=user_data, db=db)  # Создаем нового пользователя в базе данных
+    user_data = UserCreate(email="random@user.com", password="password")
+    new_user = create_new_user(user=user_data, db=db)
     return new_user
