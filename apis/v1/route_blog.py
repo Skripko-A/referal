@@ -6,7 +6,8 @@ from sqlalchemy.orm import Session
 from db.session import get_db
 from schemas.blog import ShowBlog, CreateBlog, UpdateBlog
 from db.repository.blog import (
-    create_new_blog, retrieve_blog, get_active_blogs, update_blog, delete_blog)
+    create_new_blog, retrieve_blog, get_active_blogs, update_blog, delete_blog
+    )
 
 
 router = APIRouter()
@@ -30,6 +31,7 @@ def get_blog(id: int, db: Session = Depends(get_db)):
             detail="Блог не найден",
             status_code=status.HTTP_404_NOT_FOUND
             )
+    return blog
 
 
 @router.get("/blogs", response_model=List[ShowBlog])
