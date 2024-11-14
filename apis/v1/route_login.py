@@ -9,10 +9,10 @@ from core.hashing import Hasher
 from core.security import create_access_token
 from db.repository.login import get_user
 from db.session import get_db
-from schemas import Token
+from schemas.token import Token
 
 
-router = APIRouter
+router = APIRouter()
 
 
 def authenticate_user(email: str, password: str, db: Session):

@@ -4,7 +4,7 @@ from fastapi import APIRouter, status, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from apis.v1.route_login import get_current_user
-from db.models import User
+from db.models.user import User
 from db.session import get_db
 from schemas.blog import ShowBlog, CreateBlog, UpdateBlog
 from db.repository.blog import (
